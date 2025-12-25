@@ -1,0 +1,73 @@
+{
+  "name": "@stacks/clarinet-sdk",
+  "version": "3.12.0",
+  "author": "Stacks Labs",
+  "description": "A SDK to interact with Clarity Smart Contracts in node.js",
+  "homepage": "https://stackslabs.com/clarinet",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stx-labs/clarinet"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "vitest-helpers/src"
+  ],
+  "main": "./dist/cjs/node/src/index.js",
+  "module": "./dist/esm/node/src/index.js",
+  "types": "./dist/esm/node/src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/node/src/index.d.ts",
+        "default": "./dist/esm/node/src/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/node/src/index.d.ts",
+        "default": "./dist/cjs/node/src/index.js"
+      }
+    },
+    "./vitest": {
+      "import": {
+        "types": "./dist/esm/node/src/vitest/index.d.ts",
+        "default": "./dist/esm/node/src/vitest/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/node/src/vitest/index.d.ts",
+        "default": "./dist/cjs/node/src/vitest/index.js"
+      }
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "compile": "tsc -b ./tsconfig.json ./tsconfig.cjs.json",
+    "build": "npm run clean && npm run compile && node ./scripts/prepare-esm-package.js",
+    "prepare": "npm run build",
+    "pretest": "tsc -b ./tsconfig.json",
+    "test": "vitest run",
+    "test:no-mxs": "vitest run --exclude=tests/remote-data.test.ts"
+  },
+  "keywords": [
+    "stacks",
+    "clarity",
+    "clarinet",
+    "tests"
+  ],
+  "license": "GPL-3.0",
+  "readme": "./README.md",
+  "dependencies": {
+    "@stacks/clarinet-sdk-wasm": "3.12.0",
+    "@stacks/transactions": "^7.0.6",
+    "kolorist": "^1.8.0",
+    "prompts": "^2.4.2",
+    "yargs": "^18.0.0"
+  },
+  "devDependencies": {
+    "@stacks/encryption": "^7.0.0",
+    "@stacks/network": "^7.0.0",
+    "@stacks/stacking": "^7.0.0",
+    "vitest": "^4.0.8"
+  }
+}
